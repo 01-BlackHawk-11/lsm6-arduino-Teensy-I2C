@@ -94,8 +94,9 @@ class LSM6
 
     LSM6(void);
 
-    bool init(deviceType device = device_auto, sa0State sa0 = sa0_auto);
+	
     deviceType getDeviceType(void) { return _device; }
+	bool init(I2CDriverWire& wire = Wire, deviceType device = device_auto, sa0State sa0 = sa0_auto);
 
     void enableDefault(void);
 
