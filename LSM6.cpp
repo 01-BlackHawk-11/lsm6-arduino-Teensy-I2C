@@ -1,10 +1,10 @@
 #include <LSM6.h>
-#include <Wire.h>
+#include <i2c_driver_wire.h>
 #include <math.h>
 
 // Defines ////////////////////////////////////////////////////////////////
 
-// The Arduino two-wire interface uses a 7-bit number for the address,
+// The Arduino two-Wire interface uses a 7-bit number for the address,
 // and sets the last bit correctly based on reads and writes
 #define DS33_SA0_HIGH_ADDRESS 0b1101011
 #define DS33_SA0_LOW_ADDRESS  0b1101010
@@ -43,8 +43,9 @@ uint16_t LSM6::getTimeout()
   return io_timeout;
 }
 
-bool LSM6::init(deviceType device, sa0State sa0)
+bool LSM6::init(I2CDriverWire& wire, deviceType device, sa0State sa0)
 {
+	Wire = wire;
   // perform auto-detection unless device type and SA0 state were both specified
   if (device == device_auto || sa0 == sa0_auto)
   {
